@@ -68,13 +68,20 @@ clean: ## Tear down and remove local images, volumes and dist
 .PHONY: install
 install: ## Install npm dependencies
 	npm ci
+	@touch node_modules/.installed
+
+# Reinstall only when the lockfile is newer than the last install, so a fresh
+# clone (or a pulled dependency change) just works with `make build` etc.
+node_modules/.installed: package-lock.json
+	npm ci
+	@touch $@
 
 .PHONY: serve
-serve: ## Run the Vite dev server on the host
+serve: node_modules/.installed ## Run the Vite dev server on the host
 	npm run dev
 
 .PHONY: build
-build: ## Production build to ./dist
+build: node_modules/.installed ## Production build to ./dist
 	npm run build
 
 .PHONY: preview
@@ -82,5 +89,5 @@ preview: build ## Build and preview the production bundle on the host
 	npm run preview
 
 .PHONY: lint
-lint: ## Lint the source
+lint: node_modules/.installed ## Lint the source
 	npm run lint
