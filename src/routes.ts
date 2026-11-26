@@ -4,6 +4,7 @@ import { useSyncExternalStore } from 'react'
 export const TRACKERS = [
   { id: 'vehicles', label: 'Unique Vehicles', title: 'GTA IV Unique Vehicles' },
   { id: 'characters', label: 'Random Characters', title: 'GTA IV Random Characters' },
+  { id: 'map', label: 'Pigeons & Jumps', title: 'GTA IV Pigeons & Stunt Jumps' },
 ] as const
 
 export type TrackerId = (typeof TRACKERS)[number]['id']

@@ -12,8 +12,12 @@ export interface MapPin {
   short: string
   title: string
   state: EncounterState
-  optional: boolean
-  dimmed: boolean
+  optional?: boolean
+  dimmed?: boolean
+  /** Extra modifier, rendered as a `pin--<kind>` class. */
+  kind?: string
+  /** Compass heading in degrees (0 = north) to draw as an arrow on the pin. */
+  heading?: number
 }
 
 interface View {
@@ -42,7 +46,10 @@ interface Props {
   onSelect: (id: string) => void
 }
 
-/** Overview of Liberty City with a pin per encounter. Drag to pan, wheel or buttons to zoom. */
+/** Zoom at which pins have room to show their labels (see `.lcmap--zoomed`). */
+const LABEL_ZOOM = 2.5
+
+/** Overview of Liberty City with a pin per point of interest. Drag to pan, wheel or buttons to zoom. */
 export function LibertyMap({ pins, selectedId, onSelect }: Props) {
   const [view, setView] = useState<View>(HOME)
   const [dragging, setDragging] = useState(false)
@@ -125,7 +132,7 @@ export function LibertyMap({ pins, selectedId, onSelect }: Props) {
   const ty = (0.5 - view.cy * view.zoom) * 100
 
   return (
-    <div className="lcmap">
+    <div className={`lcmap${view.zoom >= LABEL_ZOOM ? ' lcmap--zoomed' : ''}`}>
       <div
         ref={frame}
         className={`lcmap__frame${dragging ? ' is-dragging' : ''}`}
@@ -146,9 +153,9 @@ export function LibertyMap({ pins, selectedId, onSelect }: Props) {
             <button
               key={pin.id}
               type="button"
-              className={`pin pin--${pin.state}${pin.optional ? ' pin--optional' : ''}${
-                pin.dimmed ? ' pin--dim' : ''
-              }${pin.id === selectedId ? ' is-selected' : ''}`}
+              className={`pin pin--${pin.state}${pin.kind ? ` pin--${pin.kind}` : ''}${
+                pin.optional ? ' pin--optional' : ''
+              }${pin.dimmed ? ' pin--dim' : ''}${pin.id === selectedId ? ' is-selected' : ''}`}
               style={{ left: `${pin.x * 100}%`, top: `${pin.y * 100}%` }}
               title={pin.title}
               aria-label={pin.title}
@@ -156,7 +163,10 @@ export function LibertyMap({ pins, selectedId, onSelect }: Props) {
                 if (!justDragged.current) onSelect(pin.id)
               }}
             >
-              {pin.short}
+              {pin.heading !== undefined && (
+                <span className="pin__dir" style={{ rotate: `${pin.heading}deg` }} aria-hidden />
+              )}
+              <span className="pin__label">{pin.short}</span>
             </button>
           ))}
         </div>

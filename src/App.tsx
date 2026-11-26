@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { TRACKERS, useRoute } from './routes'
 import { VehiclesPage } from './pages/VehiclesPage'
 import { CharactersPage } from './pages/CharactersPage'
+import { CollectiblesPage } from './pages/CollectiblesPage'
 
 export default function App() {
   const route = useRoute()
@@ -22,5 +23,8 @@ export default function App() {
     return () => observer.disconnect()
   }, [route])
 
-  return <div className="app">{route === 'characters' ? <CharactersPage /> : <VehiclesPage />}</div>
+  const page =
+    route === 'characters' ? <CharactersPage /> : route === 'map' ? <CollectiblesPage /> : <VehiclesPage />
+
+  return <div className="app">{page}</div>
 }

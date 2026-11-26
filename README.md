@@ -1,10 +1,11 @@
 # GTA IV Trackers
 
 Reference and progress trackers for **Grand Theft Auto IV**. Switch between them with
-the small nav above each page title (`#/vehicles`, `#/characters`).
+the small nav above each page title (`#/vehicles`, `#/characters`, `#/map`).
 
 - **Unique Vehicles**: every unique vehicle and how to keep it.
 - **Random Characters**: all 22 random character encounters with screenshots and map locations.
+- **Pigeons & Jumps**: a city map of all 200 Flying Rats and 50 Unique Stunt Jumps.
 
 ## Unique Vehicles
 
@@ -34,6 +35,17 @@ listing, mission sources, missability warnings, difficulty ratings and video gui
 - Time windows (22:00–04:00, noon), unlock requirements, rewards and choices that change the outcome.
 - **To do / Done / Missed** per encounter, persisted to `localStorage`, with progress toward
   100% completion (17 required encounters) and the *No More Strangers* achievement (11 first encounters).
+
+## Pigeons & Stunt Jumps
+
+- **One map** with all 200 pigeons (round pins) and 50 stunt jumps (square pins, with an arrow
+  for the take-off direction). Numbers show once you zoom in.
+- Pick a pin or a number in the borough list to see the **wiki screenshot** of the spot. Jumps
+  show the ramp and the jump mid-air, with notes on the approach and what counts as a landing.
+- **Done & next** marks the current one and flies to the closest one you still need, so you
+  can sweep a neighbourhood.
+- Layer, status and borough filters, progress bars and the *Endangered Species* / *Dare Devil*
+  achievements. Progress is persisted to `localStorage`.
 
 ## Quick start
 
