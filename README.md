@@ -1,6 +1,12 @@
-# GTA IV Unique Vehicles
+# GTA IV Trackers
 
-A reference and collection tracker for every unique vehicle in **Grand Theft Auto IV**.
+Reference and progress trackers for **Grand Theft Auto IV**. Switch between them with
+the small nav above each page title (`#/vehicles`, `#/characters`).
+
+- **Unique Vehicles**: every unique vehicle and how to keep it.
+- **Random Characters**: all 22 random character encounters with screenshots and map locations.
+
+## Unique Vehicles
 
 Built from the original `cars.html` reference sheet and expanded with the full vehicle
 listing, mission sources, missability warnings, difficulty ratings and video guides.
@@ -17,6 +23,17 @@ listing, mission sources, missability warnings, difficulty ratings and video gui
 - **Garage meter** showing how many of your 10 parking spaces (5 safehouses × 2) are taken.
   Marking an 11th car as *Owned* is blocked.
 - Search and filter by status, missable and luster.
+
+## Random Characters
+
+- All **14 characters / 22 encounters**, including the three you can kill in the story
+  (Ivan, Clarence, Cherise) and Jeff's follow-ups that one wrong move locks out.
+- A **screenshot of each start point** (click it for the cutscene still) and a **zoomed map crop**.
+- **City map** with a pin per encounter. Drag to pan, scroll or use the buttons to zoom. Click a
+  pin to jump to its card, or a card's map crop to fly the map there.
+- Time windows (22:00–04:00, noon), unlock requirements, rewards and choices that change the outcome.
+- **To do / Done / Missed** per encounter, persisted to `localStorage`, with progress toward
+  100% completion (17 required encounters) and the *No More Strangers* achievement (11 first encounters).
 
 ## Quick start
 
@@ -80,9 +97,17 @@ src/
   data/
     vehicles.ts     # the full unique-vehicle dataset
     safehouses.ts   # the 5 safehouses and their parking spaces
+    characters.ts   # random characters, encounters and map coordinates
+  pages/            # one component per tracker
   store/
-    useGarage.ts    # Zustand store, persisted to localStorage
+    useGarage.ts    # vehicle picks, persisted to localStorage
+    useEncounters.ts # encounter progress, persisted to localStorage
   components/
+  routes.ts         # tracker list + hash routing; add a tracker here
+public/
+  vehicles/         # vehicle photos
+  characters/       # encounter start-point and cutscene screenshots
+  maps/             # Liberty City map
   types.ts
 docker/
   nginx.conf        # SPA fallback + asset caching for the production image

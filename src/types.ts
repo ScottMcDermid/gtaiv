@@ -70,3 +70,50 @@ export interface Vehicle {
   category: Category
   variants: Variant[]
 }
+
+// ---------------------------------------------------------------------------
+// Random characters
+// ---------------------------------------------------------------------------
+
+export type Borough = 'Broker' | 'Dukes' | 'Bohan' | 'Algonquin' | 'Alderney'
+
+/** Per-encounter progress, persisted to localStorage. */
+export type EncounterState = 'todo' | 'done' | 'missed'
+
+export interface Encounter {
+  /** Stable key used for persistence — never renumber these. */
+  id: string
+  label: 'First Encounter' | 'Second Encounter' | 'Third Encounter' | 'Unique Encounter'
+  /** Image basename under /public/characters, without the -StartingPoint/-Thumbnail suffix. */
+  image: string
+  /** Where the character stands. */
+  location: string
+  area: string
+  borough: Borough
+  /** Wiki map coordinates ([x, y] on a 6000 × 3800 grid, origin bottom-left). `null` when phone-triggered. */
+  map: [number, number] | null
+  /** How it starts when there is no street marker. */
+  trigger?: string
+  time: string
+  requires: string
+  /** Money Niko gets. A leading minus is money he gives away. */
+  reward: string | null
+  summary: string
+  tips?: string[]
+  /** Set when a choice in this encounter can lock out later ones. */
+  locksOut?: string
+  /** Set when this encounter can be locked out by an earlier choice. */
+  missable?: string
+  /** YouTube video ID. */
+  video?: string
+  wiki: string
+}
+
+export interface RandomCharacter {
+  id: string
+  name: string
+  blurb: string
+  /** Set when the whole character depends on a story choice. Says how to keep them alive. */
+  missable?: string
+  encounters: Encounter[]
+}
